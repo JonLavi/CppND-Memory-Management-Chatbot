@@ -18,7 +18,7 @@ private:
 
     // data handles (owned)
     std::vector<std::unique_ptr<GraphNode>> _nodes; // exclusive ownership of grahpNodes
-    std::vector<GraphEdge *> _edges;
+    std::vector<std::unique_ptr<GraphEdge>> _edges; // exclusive ownership of grahpEdges (moved to Nodes where appropriate)
 
     ////
     //// EOF STUDENT CODE

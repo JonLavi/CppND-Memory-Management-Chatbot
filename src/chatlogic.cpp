@@ -35,17 +35,17 @@ ChatLogic::~ChatLogic()
     // delete chatbot instance
     delete _chatBot;
 
-    // delete all nodes
+    // delete all nodes // NO NEED TO DELETE AS SMART POINTERS ARE DECONSTRUCTED AUTOMATICALLY
     // for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
     // {
     //     // delete *it;
     // }
 
-    // delete all edges
-    for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
-    {
-        delete *it;
-    }
+    // delete all edges // NO NEED TO DELETE AS SMART POINTERS ARE DECONSTRUCTED AUTOMATICALLY
+    // for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
+    // {
+    //     delete *it;
+    // }
 
     ////
     //// EOF STUDENT CODE
@@ -160,17 +160,17 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                             auto childNode = std::find_if(_nodes.begin(), _nodes.end(), [&childToken](std::unique_ptr<GraphNode>& node) { return node->GetID() == std::stoi(childToken->second); }); //updated to work with pointers
 
                             // create new edge
-                            GraphEdge *edge = new GraphEdge(id);
+                            auto edge = std::make_unique<GraphEdge>(id); // edges are unique pointers
                             edge->SetChildNode((*childNode).get()); // pass the pointer, not the smart pointer itself
                             edge->SetParentNode((*parentNode).get()); // pass the pointer, not the smart pointer itself
-                            _edges.push_back(edge);
+                            // _edges.push_back(edge); // now managed by graph nodes when unique_ptr is passed
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);
 
                             // store reference in child node and parent node
-                            (*childNode)->AddEdgeToParentNode(edge);
-                            (*parentNode)->AddEdgeToChildNode(edge);
+                            (*childNode)->AddEdgeToParentNode(edge.get()); // parents retain a raw pointer
+                            (*parentNode)->AddEdgeToChildNode(std::move(edge)); // move the smart pointer into the child node
                         }
                         ////
                         //// EOF STUDENT CODE
