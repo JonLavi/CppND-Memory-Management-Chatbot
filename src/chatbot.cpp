@@ -46,7 +46,7 @@ ChatBot::~ChatBot()
 ////
     // copy constructor 
 ChatBot::ChatBot(const ChatBot &source){
-    std::cout <<  "Copying instance " << &source << " into "  << this << std::endl;
+    std::cout <<  "Copying (Constructor) ChatBot instance " << &source << " into "  << this << std::endl;
     _image = source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
@@ -56,7 +56,7 @@ ChatBot::ChatBot(const ChatBot &source){
 
 // move constructor
 ChatBot::ChatBot(ChatBot &&source){
-    std::cout <<  "Moving instance " << &source << " into "  << this << std::endl;
+    std::cout <<  "Moving (Constructor) ChatBot instance  " << &source << " into "  << this << std::endl;
     _image = source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
