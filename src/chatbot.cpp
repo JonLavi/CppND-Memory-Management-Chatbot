@@ -47,6 +47,7 @@ ChatBot::~ChatBot()
     // copy constructor 
 ChatBot::ChatBot(const ChatBot &source){
     std::cout <<  "Copying (Constructor) ChatBot instance " << &source << " into "  << this << std::endl;
+    // copy source members
     _image = source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
@@ -57,12 +58,14 @@ ChatBot::ChatBot(const ChatBot &source){
 // move constructor
 ChatBot::ChatBot(ChatBot &&source){
     std::cout <<  "Moving (Constructor) ChatBot instance  " << &source << " into "  << this << std::endl;
+    // assign members from source
     _image = source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
     _chatLogic->SetChatbotHandle(this);
 
+    // invalidate source object
     source._image = NULL;
     source._currentNode = nullptr;
     source._rootNode = nullptr;
@@ -76,6 +79,7 @@ ChatBot &ChatBot::operator=(const ChatBot &source){
     if (this == &source){
         return *this;
     }
+    // copy source member
     _image = source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
@@ -90,15 +94,19 @@ std::cout <<  "Move Assignment of instance " << &source << " into "  << this << 
     if (this == &source){
         return *this;
     }
+    // assign members from source
     _image = source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+
+    // invalidate source object
     source._image = NULL;
     source._currentNode = nullptr;
     source._rootNode = nullptr;
     source._chatLogic = nullptr;
     _chatLogic->SetChatbotHandle(this);
+
     return *this;
 }
 ////
