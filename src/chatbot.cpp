@@ -47,10 +47,10 @@ ChatBot::~ChatBot()
     // copy constructor 
 ChatBot::ChatBot(const ChatBot &source){
     std::cout <<  "Copying instance " << &source << " into "  << this << std::endl;
-    *_image = *source._image;
-    *_currentNode = *source._currentNode;
-    *_rootNode = *source._rootNode;
-    *_chatLogic = *source._chatLogic;
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
     _chatLogic->SetChatbotHandle(this);
 }   
 
